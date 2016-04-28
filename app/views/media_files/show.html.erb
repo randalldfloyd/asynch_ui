@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @media_file.name %>
+</p>
+
+<p>
+  <strong>Store:</strong>
+  <%= @media_file.store %>
+</p>
+
+<p>
+  <strong>Cache:</strong>
+  <%= @media_file.cache %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @media_file.description %>
+</p>
+
+<p>
+  <strong>Size:</strong>
+  <%= JSON.parse(@store_resp)['size'] %>
+</p>
+
+<p>
+  <strong>Checksum:</strong>
+  <%= JSON.parse(@store_resp)['checksum'] %>
+</p>
+
+<p>
+  <strong>
+    <% if JSON.parse(@cache_resp)['status'] == 'staged'%>
+      File available in cache:
+      <%= link_to 'Download', 'http://localhost:3000' + JSON.parse(@cache_resp)['url'] %>
+    <% elsif JSON.parse(@cache_resp)['status'] == 'staging'%>
+      File staging to cache...
+    <% else %>
+      File not in cache |
+      <%= link_to 'Stage file for download', 'http://localhost:3001' %>
+    <% end %>
+  </strong>
+</p>
+
+
+<%= link_to 'Edit', edit_media_file_path(@media_file) %> |
+<%= link_to 'Back', media_files_path %>
