@@ -1,5 +1,5 @@
 class MediaFilesController < ApplicationController
-  before_action :set_media_file, only: [:show, :edit, :update, :destroy]
+  before_action :set_media_file, only: [:show, :edit, :update, :destroy, :stage]
 
   # GET /media_files
   # GET /media_files.json
@@ -40,8 +40,8 @@ class MediaFilesController < ApplicationController
   end
 
   def stage
-    @store_resp = RestClient.post 'http://localhost:3000/storage_api/stores/' + @media_file.store + '/media_files/' + @media_file.name, :type => 'stage'
-    redirect_to @media_file, notice: 'A job to stage Media file has initiated.'
+    @store_resp = RestClient.post 'http://localhost:3000/storage_api/jobs/' + @media_file.cache + '/' + @media_file.name, :type => 'stage'
+    redirect_to @media_file, notice: 'A job to stage this media file has been initiated.'
   end
 
   # PATCH/PUT /media_files/1

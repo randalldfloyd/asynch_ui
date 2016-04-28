@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :media_files
+  get 'media_files/stage/:id' => 'media_files#stage', as: 'stage_media_file', :constraints => { :id => /.*/ }
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
